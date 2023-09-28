@@ -1,0 +1,102 @@
+{
+	"info": {
+		"_postman_id": "5dee2b99-9fd9-43e7-9ee6-4f53286477c3",
+		"name": "kafka",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "publishEvent",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\":\"order-id\",\n    \"username\":\"mrsonmez10\",\n    \"price\":\"213 TL\",\n    \"createdTime\":\"10.03.2023\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/orders",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getConnector",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8083/connectors/outbox",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"connectors",
+						"outbox"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteConnector",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8083/connectors/outbox",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"connectors",
+						"outbox"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addConnector",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"outbox\",\r\n    \"config\": {\r\n        \"connector.class\": \"io.debezium.connector.postgresql.PostgresConnector\",\r\n        \"tasks.max\": \"1\",\r\n        \"database.hostname\": \"db\",\r\n        \"database.port\": \"5432\",\r\n        \"database.user\": \"postgres\",\r\n        \"database.password\": \"example\",\r\n        \"database.dbname\": \"outbox\",\r\n        \"database.server.name\": \"postgres\",\r\n        \"topic.prefix\": \"order\",\r\n        \"table.include.list\": \"public.outbox\",\r\n        \"tombstones.on.delete\": \"false\",\r\n        \"table.field.event.payload\": \"payload\",\r\n        \"skipped.operations\": \"u,t,d\",\r\n        \"key.converter\": \"org.apache.kafka.connect.json.JsonConverter\",\r\n        \"key.converter.schemas.enable\": \"false\",\r\n        \"value.converter.schemas.enable\": \"false\",\r\n        \"transforms\": \"outbox\",\r\n        \"transforms.outbox.type\": \"io.debezium.transforms.outbox.EventRouter\",\r\n        \"transforms.outbox.table.expand.json.payload\": \"true\",\r\n        \"transforms.outbox.route.topic.replacement\": \"${routedByValue}\",\r\n        \"value.converter\": \"org.apache.kafka.connect.json.JsonConverter\",\r\n        \"route.topic.regex\": \"\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8083/connectors/",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"connectors",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

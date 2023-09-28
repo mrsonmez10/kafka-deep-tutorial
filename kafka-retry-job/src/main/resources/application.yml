@@ -1,0 +1,6 @@
+server:
+  port: 8089
+
+kafka:
+  brokers: localhost:59092
+  topics: { "order-create.kafkaconsumer.error": 10 }
